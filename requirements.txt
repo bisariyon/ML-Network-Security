@@ -5,7 +5,6 @@ setuptools
 pymongo
 certifi
 
-
--e .
+# -e .
 
 
