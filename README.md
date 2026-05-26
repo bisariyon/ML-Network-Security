@@ -2,17 +2,9 @@
 
 ## Detailed Explanations
 
-### [Data Ingestion](./docs/data_ingestion.md)
-
-Covers:
-
-- ingestion workflow
-- MongoDB data fetching
-- train-test split
-- artifact generation
-- runtime flow
-
----
+### [Data Ingestion Pipeline](./docs/data_ingestion.md)
+### [Data Validation Pipeline](./docs/data_validation.md)
+--- 
 
 ### Constants File
 
