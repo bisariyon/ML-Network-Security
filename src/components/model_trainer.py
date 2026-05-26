@@ -1,6 +1,9 @@
 import os
 import sys
+import dagshub
+dagshub.init(repo_owner='bisariyon', repo_name='ML-Network-Security', mlflow=True)
 
+import mlflow
 from sklearn.ensemble import AdaBoostClassifier, GradientBoostingClassifier, RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -23,7 +26,26 @@ class ModelTrainer:
             self.data_transformation_artifact = data_transformation_artifact
         except Exception as e:
             raise NetworkSecurityException(e,sys)
+    
+    def track_mlflow(self,best_model,classification_metric, best_model_name):
         
+
+        with mlflow.start_run():
+            f1_score=classification_metric.f1_score
+            precision_score=classification_metric.precision_score
+            recall_score=classification_metric.recall_score
+
+        
+            mlflow.log_metric("f1_score",f1_score)
+            mlflow.log_metric("precision",precision_score)
+            mlflow.log_metric("recall_score",recall_score)
+
+            mlflow.log_param("best_model", best_model_name)
+
+            mlflow.sklearn.log_model(best_model,"model")
+
+
+
     def train_model(self,X_train,y_train,X_test,y_test):
 
         models = {
@@ -37,25 +59,25 @@ class ModelTrainer:
         params={
             "Decision Tree": {
                 'criterion':['gini', 'entropy', 'log_loss'],
-                'splitter':['best','random'],
-                'max_features':['sqrt','log2'],
+                # 'splitter':['best','random'],
+                # 'max_features':['sqrt','log2'],
             },
             "Random Forest":{
                 'criterion':['gini', 'entropy', 'log_loss'],
-                'max_features':['sqrt','log2',None],
-                'n_estimators': [8,16,32,128,256]
+                # 'max_features':['sqrt','log2',None],
+                # 'n_estimators': [8,16,32,128,256]
             },
             "Gradient Boosting":{
                 'loss':['log_loss', 'exponential'],
-                'learning_rate':[.1,.01,.05,.001],
-                'subsample':[0.6,0.7,0.75,0.85,0.9],
+                # 'learning_rate':[.1,.01,.05,.001],
+                # 'subsample':[0.6,0.7,0.75,0.85,0.9],
                 'criterion':['squared_error', 'friedman_mse'],
                 'max_features':['auto','sqrt','log2'],
-                'n_estimators': [8,16,32,64,128,256]
+                # 'n_estimators': [8,16,32,64,128,256]
             },
             "Logistic Regression":{},
             "AdaBoost":{
-                'learning_rate':[.1,.01,.001],
+                # 'learning_rate':[.1,.01,.001],
                 'n_estimators': [8,16,32,64,128,256]
             }
             
@@ -72,13 +94,16 @@ class ModelTrainer:
         y_train_pred = best_model.predict(X_train)
         classification_train_metric = get_classification_score(y_true = y_train,y_pred=y_train_pred)
 
-        # Track ML Flow
+        logging.info("Track mlfow on train data")
+        self.track_mlflow(best_model,classification_train_metric,best_model_name)
+        
 
         logging.info("Using best model to predict on test data")
         y_test_pred = best_model.predict(X_test)
         classification_test_metric = get_classification_score(y_true = y_test,y_pred=y_test_pred)
 
-        # Track ML Flow
+        logging.info("Track mlfow on test data")
+        self.track_mlflow(best_model,classification_test_metric,best_model_name)
 
         preprocessor = load_object(file_path=self.data_transformation_artifact.transformed_object_file_path)
         logging.info("Preprocessor loaded")
