@@ -12,7 +12,7 @@ from sklearn.pipeline import Pipeline
 import pandas as pd
 import numpy as np
 
-from src.utils.utils import save_numpy_array_data, save_object
+from src.utils.main_utils import save_numpy_array_data, save_object
 
 class DataTransformation:
     def __init__(self, 

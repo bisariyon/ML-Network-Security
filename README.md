@@ -2,8 +2,11 @@
 
 ## Detailed Explanations
 
-### [Data Ingestion Pipeline](./docs/data_ingestion.md)
-### [Data Validation Pipeline](./docs/data_validation.md)
+- [Data Ingestion Pipeline](./docs/data_ingestion.md)
+- [Data Validation Pipeline](./docs/data_validation.md)
+- [Data Transformation Pipeline](./docs/data_trasformation.md)
+- [Model Training Pipeline](./docs/model_trainer.md)
+
 --- 
 
 ### Constants File
@@ -65,7 +68,10 @@ NetworkSecurity/
 ├── src/
 │   │
 │   ├── components/
-│   │   └── data_ingestion.py
+│   │   ├── data_ingestion.py
+|   |   ├── data_validation.py
+│   │   ├── data_transformation.py
+│   │   └── model_trainer.py
 │   │
 │   ├── constants/
 │   │   └── training_pipeline_constants.py
@@ -87,7 +93,10 @@ NetworkSecurity/
 ├── Artifacts/
 │
 ├── docs/
-│   └── data_ingestion.md
+│   ├── data_ingestion.md
+│   ├── data_validation.md
+│   ├── data_transformation.md
+│   └── model_trainer.md
 │
 ├── app.py
 │

@@ -7,7 +7,7 @@ from src.entity.config_entity import DataValidationConfig
 from src.exception.exception import NetworkSecurityException
 from src.logging.logger import logging
 
-from src.utils.utils import read_yaml_file, write_yaml_file
+from src.utils.main_utils import read_yaml_file, write_yaml_file
 
 import pandas as pd
 from scipy.stats import ks_2samp

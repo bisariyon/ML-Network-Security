@@ -1,3 +1,4 @@
+from calendar import c
 from datetime import datetime
 import os
 from src.constants import training_pipeline_constants
@@ -146,3 +147,34 @@ class DataTransformationConfig:
             training_pipeline_constants.DATA_TRANSFORMATION_TRANSFORMED_OBJECT_DIR,
             training_pipeline_constants.DATA_TRANSFORMATION_PREPROCESSING_OBJECT_FILE_NAME
         )
+
+"""
+Artifacts/
+└── timestamp/
+    └── model_trainer/
+        └──  trained_model/
+            └── model.pkl
+"""
+class ModelTrainerConfig:
+    def __init__(self, training_pipeline_config:TrainingPipelineConfig):
+        
+        self.model_trainer_dir = os.path.join(
+            training_pipeline_config.artifact_dir,
+            training_pipeline_constants.MODEL_TRAINER_DIR_NAME
+        )
+
+        self.trained_model_dir = os.path.join(
+            self.model_trainer_dir,
+            training_pipeline_constants.MODEL_TRAINER_TRAINED_MODEL_DIR
+        )
+
+        self.trained_model_file_path = os.path.join(
+            self.trained_model_dir,
+            training_pipeline_constants.MODEL_TRAINER_TRAINED_MODEL_FILE_PATH,
+        )
+        
+        self.expected_accuracy = training_pipeline_constants.MODEL_TRAINER_EXPECTED_ACCURACY_SCORE
+        self.overfitting_underfitting_threshold = training_pipeline_constants.MODEL_TRAINER_OVER_FIITING_UNDER_FITTING_THRESHOLD
+        
+
+

@@ -73,24 +73,6 @@ It creates paths for:
 
 ---
 
-# TrainingPipelineConfig
-
-The `TrainingPipelineConfig` class creates the main timestamped artifact directory.
-
-Example:
-
-```txt
-Artifacts/27_05_2026_01_01_21/
-```
-
-This helps:
-
-* separate different runs
-* avoid overwriting files
-* maintain pipeline history
-
----
-
 # Generated Artifact Structure
 
 ```txt
