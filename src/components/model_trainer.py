@@ -118,6 +118,12 @@ class ModelTrainer:
         save_object(self.model_trainer_config.trained_model_file_path,obj = prediction_model)
         logging.info("prediction_model saved to artifacts\<date.now()>\model_trainer\trained_model\model.pkl")      
 
+        logging.info("For simplifity saving best model to final_model/best_model.pkl")
+        save_object( "final_model/best_model.pkl", best_model)
+
+        logging.info("Also saving prediction_model to final_model/PredictionModel.pkl")
+        save_object( "final_model/PredictionModel.pkl", prediction_model)
+
         model_trainer_artifact  = ModelTrainerArtifact(trained_model_file_path=self.model_trainer_config.trained_model_file_path, 
                                                        train_metric_artifact = classification_train_metric,
                                                        test_metric_artifact=classification_test_metric )
