@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Results - Network Security</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(22, 28, 45, 0.4);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --primary: #4f46e5;
+            --primary-glow: rgba(79, 70, 229, 0.3);
+            --accent-cyan: #06b6d4;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --font-outfit: 'Outfit', sans-serif;
+            --font-inter: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(79, 70, 229, 0.1) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(6, 182, 212, 0.07) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: var(--font-inter);
+            min-height: 100vh;
+            padding: 3rem 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        h1 {
+            font-family: var(--font-outfit);
+            font-size: 2.25rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        button, .btn {
+            font-family: var(--font-inter);
+            font-weight: 600;
+            font-size: 0.875rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, #3730a3 100%);
+            color: #ffffff;
+            box-shadow: 0 4px 14px 0 var(--primary-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 var(--primary-glow);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .info-bar {
+            background: rgba(6, 182, 212, 0.05);
+            border: 1px solid rgba(6, 182, 212, 0.2);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: #93c5fd;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Pandas HTML Table Styling Override */
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        table.table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        table.table th {
+            background: #111827;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 1rem 0.75rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            white-space: nowrap;
+        }
+
+        table.table td {
+            padding: 0.85rem 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            white-space: nowrap;
+        }
+
+        table.table tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+            color: #ffffff;
+        }
+
+        /* Badge Styling for classification output cells */
+        .badge {
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .badge.legit {
+            background: rgba(16, 185, 129, 0.15);
+            color: #a7f3d0;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .badge.phish {
+            background: rgba(239, 68, 68, 0.15);
+            color: #fca5a5;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>Batch Prediction Results</h1>
+            </div>
+            <div class="actions">
+                <a href="/" class="btn btn-secondary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    Back to Dashboard
+                </a>
+                <a href="/download_predictions" class="btn btn-primary">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download Predicted CSV
+                </a>
+            </div>
+        </header>
+
+        <section class="card">
+            <div class="info-bar">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                Predictions generated successfully. Color badges represent threat evaluation status (Legitimate vs Phishing).
+            </div>
+            
+            <div class="table-responsive">
+                {{ table | safe }}
+            </div>
+        </section>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const table = document.querySelector('table');
+            if (!table) return;
+
+            // Find indexes of the key target and result columns
+            const headers = Array.from(table.querySelectorAll('th'));
+            const predictedIdx = headers.findIndex(th => th.innerText.trim() === 'Predicted_Result');
+            const resultIdx = headers.findIndex(th => th.innerText.trim() === 'Result');
+
+            // Format cell text values into clean safety badges
+            const rows = table.querySelectorAll('tbody tr');
+            rows.forEach(row => {
+                const cells = row.querySelectorAll('td');
+                
+                // Format predicted column
+                if (predictedIdx !== -1 && cells[predictedIdx]) {
+                    const cell = cells[predictedIdx];
+                    const val = parseInt(cell.innerText.trim());
+                    if (val === 1) {
+                        cell.innerHTML = '<span class="badge legit">Legitimate</span>';
+                    } else if (val === 0 || val === -1) {
+                        cell.innerHTML = '<span class="badge phish">Phishing</span>';
+                    }
+                }
+
+                // Format actual column (if it exists in the test CSV)
+                if (resultIdx !== -1 && cells[resultIdx]) {
+                    const cell = cells[resultIdx];
+                    const val = parseInt(cell.innerText.trim());
+                    if (val === 1) {
+                        cell.innerHTML = '<span class="badge legit">Legitimate</span>';
+                    } else if (val === 0 || val === -1) {
+                        cell.innerHTML = '<span class="badge phish">Phishing</span>';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

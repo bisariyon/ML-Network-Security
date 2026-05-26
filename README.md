@@ -7,7 +7,7 @@
 - [Data Transformation Pipeline](./docs/data_trasformation.md)
 - [Model Training Pipeline](./docs/model_trainer.md)
 
---- 
+---
 
 ### Constants File
 
@@ -105,4 +105,12 @@ NetworkSecurity/
 ├── README.md
 │
 └── Architecture.pdf
+```
+
+# How to run
+
+```bash
+uvicorn app:app --reload
+
+python app.py
 ```
