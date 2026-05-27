@@ -1,7 +1,7 @@
 ---
 title: NetworkSecurity
-emoji: 🏢
-colorFrom: purple
+emoji: 😻
+colorFrom: indigo
 colorTo: gray
 sdk: docker
 pinned: false
