@@ -2,7 +2,19 @@
 
 This project is a Machine Learning–based Phishing Website Detection System that analyzes multiple website and URL-related features to determine whether a website is legitimate or malicious. The model uses features such as URL structure, HTTPS status, domain age, redirects, popups, iframe usage, DNS records, web traffic, and Google indexing to identify phishing attempts. The application helps improve cybersecurity by detectingsuspicious websites before users interact with them.
 
-[Working Link](https://bisariyon-networksecurity.hf.space/)
+## Live Application
+
+🚀 [Open Live App](https://bisariyon-networksecurity.hf.space/)
+
+---
+
+## Sample Data
+
+📥 [Download Sample CSV File](https://github.com/user-attachments/files/28302181/sample_prediction_data.csv)
+
+Use the sample CSV file above for batch prediction testing.
+
+You can also use the sample data already available directly on the application UI page.
 
 ## Detailed Explanations
 
