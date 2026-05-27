@@ -16,7 +16,6 @@ print(mongo_db_url)
 import pymongo
 from src.exception.exception import NetworkSecurityException
 from src.logging.logger import logging
-from src.pipeline.training_pipeline import TrainingPipeline
 
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, File, UploadFile,Request
@@ -137,4 +136,4 @@ async def predict_route(request: Request, file: UploadFile = File(...)):
 
     
 if __name__=="__main__":
-    app_run(app,host="0.0.0.0",port=8000)
+    app_run(app, host="0.0.0.0", port=int(os.getenv("PORT", 7860)))
