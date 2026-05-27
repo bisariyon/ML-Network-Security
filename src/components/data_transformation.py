@@ -111,8 +111,8 @@ class DataTransformation:
             )
             logging.info("Saved preprocessing object")
 
-            logging.info("For simplifity saving preprocessor object to final_model/preprocessor.pkl")
-            save_object( "final_model/preprocessor.pkl", preprocessor)
+            # logging.info("For simplifity saving preprocessor object to final_model/preprocessor.pkl")
+            # save_object( "final_model/preprocessor.pkl", preprocessor)
 
             data_transformation_artifact = DataTransformationArtifact(
                 transformed_object_file_path = self.data_transformation_config.transformed_object_file_path,

@@ -81,9 +81,11 @@ async def predict_single(data: dict = Body(...)):
         row = {col: int(data.get(col, 0)) for col in FEATURE_COLUMNS}
         df = pd.DataFrame([row], columns=FEATURE_COLUMNS)
             
-        preprocessor = load_object("final_model/preprocessor.pkl")
-        final_model = load_object("final_model/best_model.pkl")
-        network_model = PredictionModel(preprocessor=preprocessor, model=final_model)
+        # preprocessor = load_object("final_model/preprocessor.pkl")
+        # final_model = load_object("final_model/best_model.pkl")
+        # network_model = PredictionModel(preprocessor=preprocessor, model=final_model)
+        
+        network_model = load_object("final_model/PredictionModel.pkl")
         
         y_pred = network_model.predict(df)
         prediction = int(y_pred[0])
@@ -109,9 +111,11 @@ async def predict_route(request: Request, file: UploadFile = File(...)):
         
         df_features = df.reindex(columns=FEATURE_COLUMNS)
 
-        preprocesor=load_object("final_model/preprocessor.pkl")
-        final_model=load_object("final_model/best_model.pkl")
-        network_model = PredictionModel(preprocessor=preprocesor,model=final_model)
+        # preprocesor=load_object("final_model/preprocessor.pkl")
+        # final_model=load_object("final_model/best_model.pkl")
+        # network_model = PredictionModel(preprocessor=preprocesor,model=final_model)
+        network_model = load_object("final_model/PredictionModel.pkl")
+
 
         y_pred = network_model.predict(df_features)
         
@@ -136,4 +140,4 @@ async def predict_route(request: Request, file: UploadFile = File(...)):
 
     
 if __name__=="__main__":
-    app_run(app, host="0.0.0.0", port=int(os.getenv("PORT", 7860)))
+    app_run(app, host="0.0.0.0", port=int(os.getenv("PORT", 5000)))
